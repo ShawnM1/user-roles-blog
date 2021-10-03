@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Exclude } from 'class-transformer'
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class UserEntity {
@@ -10,4 +11,16 @@ export class UserEntity {
 
     @Column({ unique: true })
     username?: string
+
+    @Column()
+    email: string
+
+    @Column()
+    @Exclude()
+    password: string
+
+    @BeforeInsert()
+    emailToLowerCase() {
+        this.email = this.email.toLocaleLowerCase()
+    }
 }

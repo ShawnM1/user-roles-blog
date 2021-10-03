@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common'
 import { Observable } from 'rxjs'
+import { UserEntity } from './models/user.entity'
 import { User } from './models/user.interface'
 import { UserService } from './user.service'
 
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
