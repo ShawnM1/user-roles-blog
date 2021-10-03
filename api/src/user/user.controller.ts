@@ -1,7 +1,10 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common'
 import { Observable } from 'rxjs'
+import { hasRoles } from 'src/auth/decorators/roles.decorator'
+import { JwtAuthGuard } from 'src/auth/guards/jwt-guard'
+import { RolesGuard } from 'src/auth/guards/roles-guard'
 import { UserEntity } from './models/user.entity'
-import { User } from './models/user.interface'
+import { User, UserRole } from './models/user.interface'
 import { UserService } from './user.service'
 
 @Controller('users')
@@ -32,5 +35,12 @@ export class UserController {
     @Put(':id')
     updateOne(@Param('id') id: string, @Body() user: User): Observable<any> {
         return this.userService.updateOne(+id, user)
+    }
+
+    @Put(':id/role')
+    @hasRoles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    updateRoleOfUser(@Param('id') id: string, @Body() user: User): Observable<any> {
+        return this.userService.updateRoleOfUser(+id, user)
     }
 }

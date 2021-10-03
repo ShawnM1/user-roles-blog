@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer'
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { UserRole } from './user.interface'
 
 @Entity()
 export class UserEntity {
@@ -23,4 +24,7 @@ export class UserEntity {
     emailToLowerCase() {
         this.email = this.email.toLocaleLowerCase()
     }
+
+    @Column({ type: 'enum', enum: UserRole, default: UserRole.USER})
+    role: UserRole
 }

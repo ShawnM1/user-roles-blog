@@ -5,6 +5,9 @@ import { UserModule } from 'src/user/user.module';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { LocalStrategy } from './strategies/local.strategy';
+import { JwtAuthGuard } from './guards/jwt-guard';
+import { RolesGuard } from './guards/roles-guard';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
     imports: [JwtModule.registerAsync({
@@ -15,7 +18,7 @@ import { LocalStrategy } from './strategies/local.strategy';
             signOptions: { expiresIn: '3600s' }
         })
     }), forwardRef(() => UserModule)],
-    providers: [AuthService, LocalStrategy],
+    providers: [AuthService, LocalStrategy, JwtAuthGuard, RolesGuard, JwtStrategy],
     exports: [AuthService],
     controllers: [AuthController]
 })
