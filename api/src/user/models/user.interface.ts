@@ -1,5 +1,3 @@
-import { Exclude } from "class-transformer"
-
 export enum UserRole {
     ADMIN = 'admin',
     PUBLISHER = 'publisher',
@@ -12,8 +10,6 @@ export class User {
     name?: string
     username?: string
     email?: string
-
-    @Exclude()
     password?: string
     role?: UserRole
 }

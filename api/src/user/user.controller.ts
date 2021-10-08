@@ -1,9 +1,9 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Pagination } from 'nestjs-typeorm-paginate'
 import { Observable } from 'rxjs'
 import { hasRoles } from 'src/auth/decorators/roles.decorator'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard'
 import { RolesGuard } from 'src/auth/guards/roles-guard'
-import { UserEntity } from './models/user.entity'
 import { User, UserRole } from './models/user.interface'
 import { UserService } from './user.service'
 
@@ -23,8 +23,9 @@ export class UserController {
     }
 
     @Get()
-    findAll(): Observable<User[]> {
-        return this.userService.findAll()
+    index(@Query('page') page: number = 1, @Query('limit')limit: number = 10): Observable<Pagination<User>> {
+        limit = limit > 100 ? 100 : limit
+        return this.userService.pagineate({ page, limit, route: 'http://localhost:3000/users' })
     }
 
     @Delete(':id')
