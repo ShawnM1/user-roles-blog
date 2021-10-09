@@ -4,30 +4,33 @@
 
         <mat-form-field>
             <input matInput placeholder="Full Name" formControlName="name">
-            <mat-hint *ngIf="registerForm.controls.name.errors">Full name is required</mat-hint>
+            <mat-hint *ngIf="registerForm.get('name')?.errors">Full name is required</mat-hint>
         </mat-form-field>
 
         <mat-form-field>
             <input matInput placeholder="Username" formControlName="username">
-            <mat-hint *ngIf="registerForm.controls.username.errors">Username is required</mat-hint>
+            <mat-hint *ngIf="registerForm.get('username')?.errors">Username is required</mat-hint>
         </mat-form-field>
 
         <mat-form-field>
             <input matInput placeholder="Email" formControlName="email">
-            <mat-hint *ngIf="registerForm.controls.email.errors">Email is required</mat-hint>
+            <mat-hint *ngIf="registerForm.get('email')?.errors">Email is required</mat-hint>
         </mat-form-field>
 
         <mat-form-field>
             <input matInput placeholder="Password" type="password" formControlName="password">
-            <mat-hint *ngIf="registerForm.controls.password.errors">Password is required</mat-hint>
+            <mat-hint *ngIf="registerForm.get('password')?.errors">Password is required</mat-hint>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Confirm password" formControlName="passwordConfirm">
-            <mat-hint *ngIf="registerForm.controls.passwordConfirm.errors">Password confirm is required</mat-hint>
+            <input matInput placeholder="Confirm password" type="password" formControlName="passwordConfirm">
+            <mat-hint *ngIf="registerForm.get('passwordConfirm')?.errors">Password confirm is required</mat-hint>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" [disabled]="registerForm.invalid" type="submit">Register</button>
+        <button mat-raised-button color="primary" [disabled]="" type="submit">Register</button>
 
     </div>
 </form>
+<h3 *ngIf="registerForm.invalid">Errors:</h3>
+<small *ngIf="registerForm.get('password')?.hasError('passwordInvalid')">Password is not containing a number</small>
+<small *ngIf="registerForm.hasError('passwordsNotMatching')">Passwords not matching</small>
