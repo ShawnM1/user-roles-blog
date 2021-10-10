@@ -30,7 +30,7 @@ export class UserController {
         limit = limit > 100 ? 100 : limit
 
         if (!username) {
-            return this.userService.pagineate({ page, limit, route: 'http://localhost:3000/api/users' })
+            return this.userService.paginate({ page, limit, route: 'http://localhost:3000/api/users' })
         }    
         return this.userService.paginateFilterByUser({ page, limit, route: 'http://localhost:3000/api/users' }, { username })
     }

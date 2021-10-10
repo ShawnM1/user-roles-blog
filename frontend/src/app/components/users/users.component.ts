@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
   dataSource: MatTableDataSource<User>; 
   userData: UserData
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'role']
+  filterValue: string 
 
   constructor(private userService: UserService) { }
 
@@ -23,20 +24,22 @@ export class UsersComponent implements OnInit {
   }
 
   initDataSource() {
-    this.userService.findAll(1, 10).subscribe((userData: UserData) => {
-      this.userData = userData
-      this.dataSource = new MatTableDataSource(userData.items)
-    })
+    this.userService.findAll(1, 10).subscribe(userData => this.setTableData(userData))
   }
 
   onPaginateChange(event: PageEvent) {
     let page = event.pageIndex + 1
     let size = event.pageSize
+    this.userService.findAll(page, size, this.filterValue).subscribe(userData => this.setTableData(userData))
+  }
 
-    this.userService.findAll(page, size).subscribe((userData: UserData) => {
-      this.userData = userData
-      this.dataSource = new MatTableDataSource(userData.items)
-    })
+  findByName(username: string) {
+    this.userService.findAll(1, 10, this.filterValue).subscribe(userData => this.setTableData(userData))
+  }
+
+  private setTableData(userData: UserData) {
+    this.userData = userData
+    this.dataSource = new MatTableDataSource(userData.items)
   }
 
 }

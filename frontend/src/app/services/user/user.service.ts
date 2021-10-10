@@ -28,10 +28,13 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(page: number, size: number): Observable<UserData> {
+  findAll(page: number, size: Number, username?: string): Observable<UserData> {
     let params = new HttpParams()
     params = params.append('page', String(page))
     params = params.append('limit', String(size))
+    if (username) {
+      params = params.append('username', username)
+    }
     return this.httpClient.get<UserData>('/api/users', { params }).pipe(
       map((userData: UserData) => userData),
       catchError(err => throwError(err))

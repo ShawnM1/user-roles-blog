@@ -43,7 +43,7 @@ export class UserService {
         return from(this.userRepository.findOne({ id }))
     }
 
-    pagineate(options: IPaginationOptions): Observable<Pagination<User>> {
+    paginate(options: IPaginationOptions): Observable<Pagination<User>> {
         return from(paginate<User>(this.userRepository, options))
     }
 
