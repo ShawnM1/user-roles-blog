@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators'
 
-export interface RegisterForm {
+export interface User {
   name: string
   username: string
   email: string
   password: string
   passwordConfirm: string
+  role: string
 }
 
 @Injectable({
@@ -26,7 +27,7 @@ export class AuthenticationService {
     )
   }
 
-  register(registerForm: RegisterForm){
+  register(registerForm: User){
     return this.httpClient.post<any>('/api/users', registerForm)
   }
 }
