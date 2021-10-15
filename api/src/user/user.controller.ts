@@ -1,11 +1,28 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { diskStorage } from 'multer'
 import { Pagination } from 'nestjs-typeorm-paginate'
-import { Observable } from 'rxjs'
+import { lastValueFrom, map, Observable, of, switchMap, tap } from 'rxjs'
 import { hasRoles } from 'src/auth/decorators/roles.decorator'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard'
 import { RolesGuard } from 'src/auth/guards/roles-guard'
 import { User, UserRole } from './models/user.interface'
 import { UserService } from './user.service'
+import { v4 as uuidv4 } from 'uuid' 
+import path = require('path');
+import { join } from 'path'
+
+export const storage = {
+    storage: diskStorage({
+        destination: './uploads/profileimages',
+        filename: (req, file, cb) => {
+            const fileName: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4()
+            const extension: string = path.parse(file.originalname).ext
+
+            cb(null, `${fileName}${extension}`)
+        }
+    })
+}
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -50,5 +67,19 @@ export class UserController {
     @UseGuards(JwtAuthGuard, RolesGuard)
     updateRoleOfUser(@Param('id') id: string, @Body() user: User): Observable<any> {
         return this.userService.updateRoleOfUser(+id, user)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file', storage))
+    uploadFile(@UploadedFile() file: Express.Multer.File, @Req() req): Observable<Object> {
+        return this.userService.updateOne(req.user.sub, { profileImage: file.filename} as User).pipe(
+            map((user: User) => ({ imagePath: user.profileImage }))
+        )
+    }
+
+    @Get('profile-image/:imagename')
+    findProfileImage(@Param('imagename') imageName, @Res() res): Observable<Object>{
+        return of(res.sendFile(join(process.cwd(),'uploads/profileimages/' + imageName)))
     }
 }
