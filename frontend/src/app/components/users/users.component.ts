@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { User } from 'src/app/services/authentication/authentication.service';
 import { UserData, UserService } from 'src/app/services/user/user.service';
@@ -17,7 +18,7 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'role']
   filterValue: string 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.initDataSource()
@@ -40,6 +41,10 @@ export class UsersComponent implements OnInit {
   private setTableData(userData: UserData) {
     this.userData = userData
     this.dataSource = new MatTableDataSource(userData.items)
+  }
+
+  navigateToProfile(id: string) {
+    this.router.navigate(['./' + id], { relativeTo: this.activatedRoute })
   }
 
 }

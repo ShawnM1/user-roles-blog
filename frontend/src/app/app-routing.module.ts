@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UpdateUserProfileComponent } from './components/update-user-profile/update-user-profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UsersComponent } from './components/users/users.component';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -21,7 +22,16 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UsersComponent
+    children: [
+      {
+        path: '',
+        component: UsersComponent
+      },
+      {
+        path: ':id',
+        component: UserProfileComponent
+      }
+    ],
   }, 
   {
     path: 'update-profile',
