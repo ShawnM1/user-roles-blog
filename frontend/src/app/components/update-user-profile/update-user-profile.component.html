@@ -1,1 +1,22 @@
-<h1>Is Authenticated!</h1>
+<form [formGroup]="form" (ngSubmit)="update()">
+        <mat-card class="container">
+
+            <mat-form-field>
+                <input matInput placeholder="ID" formControlName="id">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Username" formControlName="username">
+            </mat-form-field>
+
+            <p>TODO: update email/password/profile-image</p>
+
+            <button mat-raised-button color="primary" [disabled]="form.invalid">Update Profile</button>
+
+        </mat-card>
+
+</form>

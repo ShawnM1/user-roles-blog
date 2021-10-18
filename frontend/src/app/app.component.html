@@ -1,9 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Third Line</span>
     <span class="example-spacer"></span>
-    <button mat-flat-button routerLink="users">Users</button>
-    <button mat-flat-button routerLink="admin">Admin</button>
+    <button mat-flat-button style="margin-left: 20px;" routerLink="users">Users</button>
+    <button mat-flat-button style="margin-left: 20px;" routerLink="admin">Admin</button>
     <mat-form-field style="margin-left: 20px;" name="loginRegisterDropDown">
       <mat-select placeholder="Login" (selectionChange)="navigateTo($event.value)">
         <mat-option *ngFor="let entry of entries" [value]="entry.link">

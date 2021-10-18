@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { map } from 'rxjs/operators'
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators'
 
 export interface User {
+  id: number
   name: string
   username: string
   email: string
@@ -38,5 +40,12 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     const token = localStorage.getItem(JWT_NAME) || undefined
     return !this.jwtHelper.isTokenExpired(token)
+  }
+
+  getUserId(): Observable<number>{
+    const jwt = localStorage.getItem(JWT_NAME) || undefined
+    const userId = this.jwtHelper.decodeToken(jwt).sub
+    console.log(userId)
+    return of(userId)
   }
 }
