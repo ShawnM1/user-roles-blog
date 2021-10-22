@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer'
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { BlogEntryEntity } from 'src/blog/models/blog-entry.entity'
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { UserRole } from './user.interface'
 
 @Entity()
@@ -30,4 +31,7 @@ export class UserEntity {
 
     @Column({nullable: true})
     profileImage: string
+
+    @OneToMany(type => BlogEntryEntity, blogEntryEntity => blogEntryEntity.author)
+    blogEntries: BlogEntryEntity[]  
 }
