@@ -8,6 +8,7 @@ export enum UserRole {
 
 }
 export class User {
+    [x: string]: any
     id?: number
     name?: string
     username?: string

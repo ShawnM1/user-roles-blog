@@ -40,7 +40,7 @@ export class UserService {
     }
 
     findOne(id: number): Observable<User> {
-        return from(this.userRepository.findOne({ id }))
+        return from(this.userRepository.findOne({ id }, { relations: ['blogEntries'] }))
     }
 
     paginate(options: IPaginationOptions): Observable<Pagination<User>> {
@@ -52,6 +52,7 @@ export class UserService {
              skip: (+options.page - 1) * +options.limit || 0, 
              take: +options.limit || 10,
              order: { id: "ASC" },
+             relations: ['blogEntries'],
              where: [
                  { username: Like(`%${user.username}%`)}
              ]
