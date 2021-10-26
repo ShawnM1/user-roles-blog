@@ -53,6 +53,8 @@ export class UserController {
         return this.userService.paginateFilterByUser({ page, limit, route: 'http://localhost:3000/api/users' }, { username })
     }
 
+    @hasRoles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Delete(':id')
     deleteOne(@Param('id') id: string): Observable<any> {
         return this.userService.deleteOne(+id)

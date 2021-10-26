@@ -1,6 +1,7 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, Param, Post, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
+import { UserIsAuthorGuard } from '../guards/user-is-author.guard';
 import { BlogEntry } from '../models/blog-entry.interface';
 import { BlogService } from '../service/blog.service';
 
@@ -28,5 +29,17 @@ export class BlogController {
     @Get(':id')
     findOne(@Param('id') id: number): Observable<BlogEntry> {
         return this.blogService.findOne(id)
+    }
+
+    @UseGuards(JwtAuthGuard, UserIsAuthorGuard)
+    @Put(':id')
+    updateOne(@Param('id') id: number, @Body() blogEntry: BlogEntry): Observable<BlogEntry> {
+        return this.blogService.updateOne(id, blogEntry)
+    }
+
+    @UseGuards(JwtAuthGuard, UserIsAuthorGuard)
+    @Delete(':id')
+    deleteOne(@Param('id') id: number): Observable<any> {
+        return this.blogService.deleteOne(id)
     }
 }
