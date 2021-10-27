@@ -48,4 +48,8 @@ export class UserService {
       catchError(err => throwError(err))
     )
   }
+
+  uploadProfileImage(formData: FormData): Observable<any> {
+    return this.httpClient.post<FormData>('/api/users/upload', formData, { reportProgress: true, observe: 'events'})
+  }
 }

@@ -45,7 +45,7 @@ export class AuthenticationService {
   getUserId(): Observable<number>{
     const jwt = localStorage.getItem(JWT_NAME) || undefined
     const userId = this.jwtHelper.decodeToken(jwt).sub
-    console.log(userId)
+
     return of(userId)
   }
 }
