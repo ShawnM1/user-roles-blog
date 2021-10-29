@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { User } from 'src/app/services/authentication/authentication.service';
+import { User } from 'src/app/model/user.interface';
 import { UserData, UserService } from 'src/app/services/user/user.service';
 
 @Component({
