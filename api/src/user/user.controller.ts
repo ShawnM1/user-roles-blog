@@ -2,7 +2,7 @@ import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post,
 import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
 import { Pagination } from 'nestjs-typeorm-paginate'
-import { lastValueFrom, map, Observable, of, switchMap, tap } from 'rxjs'
+import { map, Observable, of } from 'rxjs'
 import { hasRoles } from 'src/auth/decorators/roles.decorator'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard'
 import { RolesGuard } from 'src/auth/guards/roles-guard'
