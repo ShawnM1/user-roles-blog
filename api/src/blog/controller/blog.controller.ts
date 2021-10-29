@@ -5,7 +5,7 @@ import { UserIsAuthorGuard } from '../guards/user-is-author.guard';
 import { BlogEntry } from '../models/blog-entry.interface';
 import { BlogService } from '../service/blog.service';
 
-@Controller('blogs')
+@Controller('blog-entries')
 @UseInterceptors(ClassSerializerInterceptor)
 export class BlogController {
 
@@ -18,12 +18,33 @@ export class BlogController {
         return this.blogService.create(user, blogEntry)
     }
 
+    // @Get()
+    // findBlogEntries(@Query('userId') userId: number): Observable<BlogEntry[]> {
+    //     if (userId == null) {
+    //         return this.blogService.findAll()
+    //     }
+    //     return this.blogService.findByUser(userId)
+    // }
+
     @Get()
-    findBlogEntries(@Query('userId') userId: number): Observable<BlogEntry[]> {
-        if (userId == null) {
-            return this.blogService.findAll()
-        }
-        return this.blogService.findByUser(userId)
+    index(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10
+        ) {
+            limit = limit > 100 ? 100 : limit
+            return this.blogService.paginateAll({ limit, page})
+
+    }
+
+    @Get('user/:user')
+    indexByUser(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+        @Param('user') userId: number
+        ) {
+            limit = limit > 100 ? 100 : limit
+            return this.blogService.paginateByUser({ limit, page}, userId)
+
     }
 
     @Get(':id')
