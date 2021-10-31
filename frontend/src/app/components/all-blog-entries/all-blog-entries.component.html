@@ -1,6 +1,6 @@
 <div style="width: 50%; margin-left: 25%;">
     <mat-card *ngFor="let blogEntry of (dataSource | async)?.items" style="margin-top: 15px;"> 
-        <div style="display:flex">
+        <div style="display:flex;">
             <div>
                 <img *ngIf="blogEntry.headerImage !== null; else placeholderImage" src="http://localhost:3000/api/blog-entries/image/{{blogEntry.headerImage}}">
                 <ng-template #placeholderImage>

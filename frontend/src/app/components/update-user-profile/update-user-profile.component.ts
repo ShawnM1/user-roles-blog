@@ -6,12 +6,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { User } from 'src/app/model/user.interface';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { UserService } from 'src/app/services/user/user.service';
-
-export interface File { 
-  data: any
-  progress: number
-  inProgress: boolean
-}
+import { File } from '../../model/file.interface'
 
 @Component({
   selector: 'app-update-user-profile',
@@ -55,7 +50,6 @@ export class UpdateUserProfileComponent implements OnInit {
   }
 
   onClick() {
-    console.log('clikc')
     const fileInput = this.fileUpload.nativeElement
     fileInput.click()
     fileInput.onchange = () => {

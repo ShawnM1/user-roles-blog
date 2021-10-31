@@ -23,6 +23,10 @@ export class AuthenticationService {
     )
   }
 
+  loguout() {
+    localStorage.removeItem(JWT_NAME)
+  }
+
   register(registerForm: User){
     return this.httpClient.post<any>('/api/users', registerForm)
   }

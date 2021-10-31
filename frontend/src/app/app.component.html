@@ -4,11 +4,13 @@
     <span class="example-spacer"></span>
     <button mat-flat-button style="margin-left: 20px;" routerLink="users">Users</button>
     <button mat-flat-button style="margin-left: 20px;" routerLink="admin">Admin</button>
+    <button mat-flat-button style="margin-left: 20px;" routerLink="create-blog-entry">Create Post</button>
     <mat-form-field style="margin-left: 20px;" name="loginRegisterDropDown">
-      <mat-select placeholder="Login" (selectionChange)="navigateTo($event.value)">
-        <mat-option *ngFor="let entry of entries" [value]="entry.link">
-          {{ entry.name }}
-        </mat-option>
+      <mat-select placeholder="">
+        <mat-option value="Login" (click)="navigateTo('login')">Login</mat-option>
+        <mat-option value="Register" (click)="navigateTo('register')">Register</mat-option>
+        <mat-option value="Update Profile" (click)="navigateTo('update-profile')">Update Profile</mat-option>
+        <mat-option value="Logout" (click)="logout()">Logout</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-toolbar-row>
