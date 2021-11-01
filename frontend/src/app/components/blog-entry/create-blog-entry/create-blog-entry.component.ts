@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { BlogService } from 'src/app/services/blog/blog.service';
-import { File } from '../../model/file.interface'
+import { File } from '../../../model/file.interface'
 
 @Component({
   selector: 'app-create-blog-entry',

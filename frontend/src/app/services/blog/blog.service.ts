@@ -10,6 +10,10 @@ export class BlogService {
 
   constructor(private httpClient: HttpClient) { }
 
+  findOne(id: number): Observable<BlogEntry> {
+    return this.httpClient.get<BlogEntry>('/api/blog-entries/' + id)
+  }
+
   indexAll(page: number, size: number): Observable<BlogEntriesPageable> {
     let params = new HttpParams()
     params = params.append('page', page)
@@ -28,4 +32,6 @@ export class BlogService {
       observe: 'events'
     })
   }
+
+
 }

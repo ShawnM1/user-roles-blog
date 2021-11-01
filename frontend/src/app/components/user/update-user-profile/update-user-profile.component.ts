@@ -6,7 +6,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { User } from 'src/app/model/user.interface';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { File } from '../../model/file.interface'
+import { File } from '../../../model/file.interface'
 
 @Component({
   selector: 'app-update-user-profile',
