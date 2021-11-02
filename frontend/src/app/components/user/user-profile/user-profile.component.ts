@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { BlogEntriesPageable } from 'src/app/model/blog-entry.interface';
 import { User } from 'src/app/model/user.interface';
+import { BlogService } from 'src/app/services/blog/blog.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -9,23 +13,29 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class UserProfileComponent{
 
-  userId: number
-  user: User
-  private sub: Subscription
+  private userId$: Observable<number> = this.activatedRoute.params.pipe(
+    map((params: Params) => +params['id'])
+  )
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService) { }
+  user$: Observable<User> = this.userId$.pipe(
+    switchMap((userId: number) => this.userService.findOne(userId))
+  )
 
-  ngOnInit(): void {
-    this.sub = this.activatedRoute.params.subscribe(params => {
-      this.userId = +params['id']
-      this.userService.findOne(this.userId).subscribe((user: User) => this.user = user)
-    })
-  }
+  blogEntries$: Observable<BlogEntriesPageable> = this.userId$.pipe(
+    switchMap((userId: number) => this.blogService.indexByUser(userId, 1, 10))
+  )
 
-  ngOnDestroy() {
-    this.sub.unsubscribe()
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private userService: UserService, 
+    private blogService: BlogService) { }
+
+  onPaginateChange(event: PageEvent) {
+    return this.userId$.pipe(
+      tap((userId: number) => this.blogEntries$ = this.blogService.indexByUser(userId, event.pageIndex, event.pageSize))
+    ).subscribe()
+  }  
 
 }

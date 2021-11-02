@@ -36,14 +36,6 @@ export class BlogController {
         return this.blogService.create(user, blogEntry)
     }
 
-    // @Get()
-    // findBlogEntries(@Query('userId') userId: number): Observable<BlogEntry[]> {
-    //     if (userId == null) {
-    //         return this.blogService.findAll()
-    //     }
-    //     return this.blogService.findByUser(userId)
-    // }
-
     @Get()
     index(
         @Query('page') page: number = 1,

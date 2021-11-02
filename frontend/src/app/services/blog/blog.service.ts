@@ -33,5 +33,13 @@ export class BlogService {
     })
   }
 
+  indexByUser(userId: number, page: number, limit: number): Observable<BlogEntriesPageable> {
+    let params = new HttpParams()
+    params = params.append('page', page)
+    params = params.append('limit', limit) 
+
+    return this.httpClient.get<BlogEntriesPageable>('api/blog-entries/user/' + userId, { params })
+  }
+
 
 }
