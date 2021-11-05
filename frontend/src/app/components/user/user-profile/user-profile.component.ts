@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { BlogEntriesPageable } from 'src/app/model/blog-entry.interface';
 import { User } from 'src/app/model/user.interface';
 import { BlogService } from 'src/app/services/blog/blog.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { WINDOW } from 'src/app/window-token';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,6 +15,8 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent{
+
+  origin = this.window.location.origin
 
   private userId$: Observable<number> = this.activatedRoute.params.pipe(
     map((params: Params) => +params['id'])
@@ -30,7 +33,8 @@ export class UserProfileComponent{
   constructor(
     private activatedRoute: ActivatedRoute, 
     private userService: UserService, 
-    private blogService: BlogService) { }
+    private blogService: BlogService,
+    @Inject(WINDOW) private window: Window) { }
 
   onPaginateChange(event: PageEvent) {
     return this.userId$.pipe(

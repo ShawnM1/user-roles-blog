@@ -1,11 +1,12 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { User } from 'src/app/model/user.interface';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { WINDOW } from 'src/app/window-token';
 import { File } from '../../../model/file.interface'
 
 @Component({
@@ -14,7 +15,7 @@ import { File } from '../../../model/file.interface'
   styleUrls: ['./update-user-profile.component.scss']
 })
 export class UpdateUserProfileComponent implements OnInit {
-
+  
   @ViewChild("fileUpload", { static: false}) fileUpload: ElementRef
 
   file: File = { 
@@ -23,9 +24,14 @@ export class UpdateUserProfileComponent implements OnInit {
     progress: 0
   }
 
-  form: FormGroup
+  form: FormGroup 
+  origin = this.window.location.origin
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService, private userSevice: UserService) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private authService: AuthenticationService, 
+    private userSevice: UserService,
+    @Inject(WINDOW) private window: Window) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({

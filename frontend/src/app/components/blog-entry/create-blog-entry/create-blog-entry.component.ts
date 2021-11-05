@@ -1,10 +1,11 @@
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { BlogService } from 'src/app/services/blog/blog.service';
+import { WINDOW } from 'src/app/window-token';
 import { File } from '../../../model/file.interface'
 
 @Component({
@@ -22,9 +23,14 @@ export class CreateBlogEntryComponent implements OnInit {
     progress: 0
   }
 
+  origin = this.window.location.origin
   form: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private blogService: BlogService, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private blogService: BlogService, 
+    private router: Router,
+    @Inject(WINDOW) private window: Window) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
