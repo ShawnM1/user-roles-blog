@@ -29,6 +29,8 @@ import { CreateBlogEntryComponent } from './components/blog-entry/create-blog-en
 import { MarkdownModule } from 'ngx-markdown';
 import { ViewBlogEntryComponent } from './components/blog-entry/view-blog-entry/view-blog-entry.component';
 import { WINDOW_PROVIDERS } from './window-token'
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginErrorComponent } from './components/dialog/login-error/login-error.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { WINDOW_PROVIDERS } from './window-token'
     AllBlogEntriesComponent,
     CreateBlogEntryComponent,
     ViewBlogEntryComponent,
+    LoginErrorComponent,
   ],
+  entryComponents: [LoginErrorComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,7 +64,8 @@ import { WINDOW_PROVIDERS } from './window-token'
     MatCardModule,
     MatProgressBarModule,
     MatIconModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    MatDialogModule
   ],
   providers: [
     WINDOW_PROVIDERS,
