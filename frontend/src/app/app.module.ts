@@ -31,6 +31,7 @@ import { ViewBlogEntryComponent } from './components/blog-entry/view-blog-entry/
 import { WINDOW_PROVIDERS } from './window-token'
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginErrorComponent } from './components/dialog/login-error/login-error.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { LoginErrorComponent } from './components/dialog/login-error/login-error
     MatProgressBarModule,
     MatIconModule,
     MarkdownModule.forRoot(),
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     WINDOW_PROVIDERS,

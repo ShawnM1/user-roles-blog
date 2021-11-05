@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit {
   userData: UserData
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'role']
   filterValue: string 
+  isLoading = true
 
   constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -24,17 +25,29 @@ export class UsersComponent implements OnInit {
   }
 
   initDataSource() {
-    this.userService.findAll(1, 10).subscribe(userData => this.setTableData(userData))
+    this.userService.findAll(1, 10).subscribe(userData => {
+      this.setTableData(userData)
+      this.isLoading = false
+    })
   }
 
   onPaginateChange(event: PageEvent) {
+    this.isLoading = true
     let page = event.pageIndex + 1
     let size = event.pageSize
-    this.userService.findAll(page, size, this.filterValue).subscribe(userData => this.setTableData(userData))
+    this.userService.findAll(page, size, this.filterValue).subscribe(userData => {
+      this.setTableData(userData)
+      this.isLoading = false
+    })
   }
 
   findByName(username: string) {
-    this.userService.findAll(1, 10, this.filterValue).subscribe(userData => this.setTableData(userData))
+    this.isLoading = true
+    setTimeout(() =>{ console.log('waiting')}, 2000)
+    this.userService.findAll(1, 10, this.filterValue).subscribe(userData => {
+      this.setTableData(userData)
+      this.isLoading = false
+    })
   }
 
   private setTableData(userData: UserData) {

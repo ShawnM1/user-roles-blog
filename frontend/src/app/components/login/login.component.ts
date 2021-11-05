@@ -33,7 +33,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.authenticationService.login(this.loginForm.value).pipe(
-        map(token => this.router.navigate(['admin']))
+        map(token => this.router.navigate(['home']))
       ).subscribe({
         error: () => this.openDialog()
       })
