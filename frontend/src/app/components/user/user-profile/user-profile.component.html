@@ -1,7 +1,10 @@
 <div *ngIf="(user$ | async) as user" class="main-div">
     <mat-card class="card">
         <mat-card-header>
-            <img mat-card-avatar src="{{origin}}/api/users/profile-image/{{user.profileImage}}">
+            <img *ngIf="user.profileImage; else placeholderImage" mat-card-avatar src="{{origin}}/api/users/profile-image/{{user.profileImage}}">
+            <ng-template #placeholderImage>
+                <img src="../../../assets/placeholders/placeholder-blog-entry.jpg">
+            </ng-template>
             <mat-card-title>{{user.name}}</mat-card-title>
             <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
         </mat-card-header>

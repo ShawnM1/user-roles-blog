@@ -3,7 +3,10 @@
         <mat-card-header>
             <div style="display: flex; flex-direction: row;">
                 <div>
-                    <img src="{{origin}}/api/blog-entries/image/{{blogEntry.headerImage}}" class="header-image">
+                    <img *ngIf="blogEntry.headerImage; else placeholderImage" src="{{origin}}/api/blog-entries/image/{{blogEntry.headerImage}}" class="header-image">
+                    <ng-template #placeholderImage>
+                        <img src="../../../assets/placeholders/placeholder-blog-entry.jpg">
+                    </ng-template>
                 </div>
                 <div style="margin-left: 20px;">
                     <h1>{{blogEntry.title}}</h1>
