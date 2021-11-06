@@ -6,7 +6,7 @@
     <button mat-flat-button style="margin-left: 20px;" routerLink="admin">Admin</button>
     <button mat-flat-button style="margin-left: 20px;" routerLink="create-blog-entry">Create Post</button>
     <mat-form-field style="margin-left: 20px;" name="loginRegisterDropDown">
-      <mat-select placeholder="">
+      <mat-select id="navBarDropdown" placeholder="">
         <mat-option value="Login" (click)="navigateTo('login')">Login</mat-option>
         <mat-option value="Register" (click)="navigateTo('register')">Register</mat-option>
         <mat-option value="Update Profile" (click)="navigateTo('update-profile')">Update Profile</mat-option>

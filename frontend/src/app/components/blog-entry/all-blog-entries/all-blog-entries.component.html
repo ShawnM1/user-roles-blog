@@ -1,6 +1,6 @@
 <div style="width: 50%; margin-left: 25%;">
     <mat-spinner *ngIf="!blogEntries"></mat-spinner>
-    <mat-card *ngFor="let blogEntry of blogEntries?.items" style="margin-top: 15px;" class="card" (click)="navigate(blogEntry?.id)"> 
+    <mat-card *ngFor="let blogEntry of blogEntries?.items" style="margin-top: 15px;" class="blog-card" id="blog-card" (click)="navigate(blogEntry?.id)"> 
         <div style="display:flex;">
             <div>
                 <img *ngIf="blogEntry.headerImage; else placeholderImage" src="{{origin}}/api/blog-entries/image/{{blogEntry.headerImage}}">

@@ -19,4 +19,11 @@ describe('Users page', () => {
         cy.get('mat-table').find('mat-row').should('have.length', 1)
     })
 
+    describe('when clicking a user row in the users table', () => {
+        it('should navigate to the user profile page', () => {
+            cy.get('mat-cell').first().click()
+            cy.url().should('include', 'users/')
+        })
+    })
+
 })
