@@ -1,0 +1,5 @@
+<h1>All Blog Entries</h1>
+<app-all-blog-entries 
+[blogEntries]="(blogEntries$ | async)"
+(paginate)="onPaginateChange($event)">
+</app-all-blog-entries>

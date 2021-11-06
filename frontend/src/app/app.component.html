@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-icon class="home-link" routerLink="/home" aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+    <span class="example-spacer"></span>
+    <button mat-flat-button style="margin-left: 20px;" routerLink="users">Users</button>
+    <button mat-flat-button style="margin-left: 20px;" routerLink="admin">Admin</button>
+    <button mat-flat-button style="margin-left: 20px;" routerLink="create-blog-entry">Create Post</button>
+    <mat-form-field style="margin-left: 20px;" name="loginRegisterDropDown">
+      <mat-select id="navBarDropdown" placeholder="">
+        <mat-option value="Login" (click)="navigateTo('login')">Login</mat-option>
+        <mat-option value="Register" (click)="navigateTo('register')">Register</mat-option>
+        <mat-option value="Update Profile" (click)="navigateTo('update-profile')">Update Profile</mat-option>
+        <mat-option value="Logout" (click)="logout()">Logout</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

@@ -1,0 +1,143 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-10-15T14:56:31.282Z",
+    "end": "2021-10-15T14:56:32.156Z",
+    "duration": 874,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "cef1555f-eb83-46ef-964e-096c0cc2f141",
+      "title": "",
+      "fullFile": "cypress/integration/users.spec.js",
+      "file": "cypress/integration/users.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "faf773d7-3523-45e9-9bb1-fe7df781a93d",
+          "title": "Users page",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should load user table",
+              "fullTitle": "Users page should load user table",
+              "timedOut": null,
+              "duration": 597,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/users');\ncy.get('[routerlink=\"users\"]').click();\ncy.get('mat-table');",
+              "err": {},
+              "uuid": "5cd16f93-3720-4cde-902b-94350a076420",
+              "parentUUID": "faf773d7-3523-45e9-9bb1-fe7df781a93d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should display correct column names",
+              "fullTitle": "Users page should display correct column names",
+              "timedOut": null,
+              "duration": 20,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Id');\ncy.contains('Name');\ncy.contains('Username');\ncy.contains('Email');\ncy.contains('Role');",
+              "err": {},
+              "uuid": "a7dd75ee-3401-48e7-88e4-bac94f20e8ff",
+              "parentUUID": "faf773d7-3523-45e9-9bb1-fe7df781a93d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should filter by username",
+              "fullTitle": "Users page should filter by username",
+              "timedOut": null,
+              "duration": 235,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('[data-placeholder=\"Search username\"]').type('shawn');\ncy.get('mat-table').find('mat-row').should('have.length', 1);",
+              "err": {},
+              "uuid": "c0798155-71c0-4204-aa55-eb67c4e06623",
+              "parentUUID": "faf773d7-3523-45e9-9bb1-fe7df781a93d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "5cd16f93-3720-4cde-902b-94350a076420",
+            "a7dd75ee-3401-48e7-88e4-bac94f20e8ff",
+            "c0798155-71c0-4204-aa55-eb67c4e06623"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 852,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}
