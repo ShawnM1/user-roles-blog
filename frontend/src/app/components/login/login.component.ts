@@ -40,7 +40,7 @@ export class LoginComponent {
     }
   }
 
-  openDialog() {
+  private openDialog() {
     this.dialog.open(LoginErrorComponent)
   }
 
