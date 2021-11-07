@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -31,7 +31,7 @@ class CustomerValidators {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent  {
 
   registerForm: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
@@ -49,13 +49,10 @@ export class RegisterComponent implements OnInit {
     passwordConfirm: new FormControl(null, Validators.required)
   }, CustomerValidators.passwordsMatch)
 
-  constructor(private authenticationService: AuthenticationService, private formBuilder: FormBuilder, private router: Router) { }
-
-  ngOnInit(): void {
-  }
+  constructor(
+    private authenticationService: AuthenticationService, private router: Router) { }
 
   onSubmit(){
-    console.log(JSON.stringify(this.registerForm.get('password')?.errors))
     if(this.registerForm.valid) {
       this.authenticationService.register(this.registerForm.value).pipe(
         map(user => this.router.navigate(['login']))
