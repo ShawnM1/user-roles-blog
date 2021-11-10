@@ -20,7 +20,6 @@ export class AllBlogEntriesComponent {
   constructor(private router: Router, @Inject(WINDOW) private window: Window) {}
 
   onPaginateChange(event: PageEvent) {
-    console.log(event)
     event.pageIndex = ++event.pageIndex
     this.paginate.emit(event)
   }

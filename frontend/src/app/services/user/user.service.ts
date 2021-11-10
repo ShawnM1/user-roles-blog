@@ -37,9 +37,8 @@ export class UserService {
   }
 
   findAll(page: number, size: Number, username?: string): Observable<UserData> {
-    let params = new HttpParams()
-    params = params.append('page', String(page))
-    params = params.append('limit', String(size))
+    let params = new HttpParams().append('page', String(page)).append('limit', String(size))
+    
     if (username) {
       params = params.append('username', username)
     }

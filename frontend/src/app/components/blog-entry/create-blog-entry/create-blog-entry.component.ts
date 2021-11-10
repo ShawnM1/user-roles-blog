@@ -44,7 +44,6 @@ export class CreateBlogEntryComponent implements OnInit {
   }
 
   post() {
-    console.log('posting')
     this.blogService.post(this.form.getRawValue()).subscribe(() => this.router.navigate(['/home']))
   }
 

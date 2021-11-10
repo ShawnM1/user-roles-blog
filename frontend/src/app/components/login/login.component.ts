@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -40,7 +40,7 @@ export class LoginComponent {
     }
   }
 
-  openDialog() {
+  private openDialog() {
     this.dialog.open(LoginErrorComponent)
   }
 
