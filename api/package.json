@@ -71,20 +71,37 @@
     "typescript": "^4.3.5"
   },
   "jest": {
+    "modulePaths": [
+      "<rootDir>"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>"
+    ],
+    "rootDir": "",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.(t|)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "test-config",
+      "dist",
+      "interfaces",
+      "jestGlobalMocks.ts",
+      ".module.ts",
+      "<rootDir>/src/app/main.ts",
+      ".mock.ts"
+    ],
+    "coverageDirectory": "coverage",
     "testEnvironment": "node"
   }
 }
