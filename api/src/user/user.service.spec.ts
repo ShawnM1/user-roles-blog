@@ -1,18 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { getRepositoryToken } from '@nestjs/typeorm'
+import { AuthService } from 'src/auth/auth.service'
+import { UserEntity } from './models/user.entity'
+import { User, UserRole } from './models/user.interface'
 import { UserService } from './user.service'
 
+const repositoryMock = {
+    save: jest.fn()
+}
+
 describe('UserService', () => {
-    let service: UserService
+    let userService: UserService
+    let authServiceMock = {
+        hashPassword: jest.fn()
+    }
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [UserService],
+            providers: [
+                { provide: getRepositoryToken(UserEntity), useValue: repositoryMock },
+                { provide: AuthService, useValue: authServiceMock },
+                UserService
+            ]
         }).compile()
 
-        service = module.get<UserService>(UserService)
+        userService = module.get<UserService>(UserService)
     })
 
     it('should be defined', () => {
-        expect(service).toBeDefined()
+        expect(userService).toBeDefined()
     })
+    
 })
