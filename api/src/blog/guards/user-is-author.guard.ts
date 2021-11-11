@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { map, Observable, switchMap } from "rxjs";
 import { User } from "src/user/models/user.interface";
 import { UserService } from "src/user/user.service";
+import { BlogEntryEntity } from "../models/blog-entry.entity";
 import { BlogEntry } from "../models/blog-entry.interface";
 import { BlogService } from "../service/blog.service";
 

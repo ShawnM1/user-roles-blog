@@ -2,7 +2,7 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { from, Observable} from 'rxjs';
 import { User } from 'src/user/models/user.interface';
-import { UserService } from '../user/user.service';
+import { UserService } from 'src/user/user.service';
 
 var bcrypt = require('bcryptjs');
 
