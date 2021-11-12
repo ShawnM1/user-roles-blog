@@ -5,7 +5,7 @@ import { RolesGuard } from "./roles-guard"
 import { createMock } from '@golevelup/ts-jest';
 import { ExecutionContext } from "@nestjs/common";
 import { User, UserRole } from "src/user/models/user.interface";
-import { Observable, of } from "rxjs";
+import { of } from "rxjs";
 
 describe('RolesGuard', () => {
     let guard: RolesGuard
@@ -42,7 +42,7 @@ describe('RolesGuard', () => {
         expect(guard.canActivate(mockExecutionContext)).toBeTruthy()
     })
 
-    it('should return false when the user does not have a matching role', () => {
+    it('should return false when the user does not have a matching role', async () => {
         const mockRequest = { user: mockUser}
         userService.findOne = jest.fn().mockReturnValue(of(mockUser))
         reflector.get = jest.fn().mockReturnValue([UserRole.USER])
@@ -51,15 +51,15 @@ describe('RolesGuard', () => {
 
         const value = guard.canActivate(mockExecutionContext)
 
-        expect(guard.canActivate(mockExecutionContext)).toBeFalsy()
+        expect(await guard.canActivate(mockExecutionContext)).toBeFalsy()
     })
-    it('should return true if the reflector has no roles' ,() => {
+    it('should return true if the reflector has no roles', async () => {
         const mockRequest = { user: mockUser}
         userService.findOne = jest.fn().mockReturnValue(of(mockUser))
         reflector.get = jest.fn().mockReturnValue(undefined)
         const mockExecutionContext = createMock<ExecutionContext>();
         mockExecutionContext.switchToHttp().getRequest.mockReturnValue(mockRequest)
 
-        expect(guard.canActivate(mockExecutionContext)).toBeTruthy()
+        expect(await guard.canActivate(mockExecutionContext)).toBeTruthy()
     })
 })
