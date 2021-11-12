@@ -9,6 +9,7 @@ export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector, private readonly userService: UserService) {}
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+        let canActivate = false
         const roles: string[] = this.reflector.get<string[]>(
             'roles',
             context.getHandler(),
@@ -18,8 +19,11 @@ export class RolesGuard implements CanActivate {
         }
         const request = context.switchToHttp().getRequest()
         const user = request.user
-        return this.userService.findOne(user.sub).pipe(
+
+        this.userService.findOne(user.sub).pipe(
             map((user: User) => roles.includes(user.role))
-        )
+        ).subscribe((hasRole) => canActivate = hasRole)
+        
+        return canActivate
     }
 }
