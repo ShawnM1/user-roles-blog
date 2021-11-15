@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { map, Observable } from 'rxjs'
+import { lastValueFrom, map, Observable } from 'rxjs'
 import { User } from 'src/user/models/user.interface'
 import { UserService } from 'src/user/user.service'
 
@@ -18,8 +18,9 @@ export class RolesGuard implements CanActivate {
         }
         const request = context.switchToHttp().getRequest()
         const user = request.user
-        return this.userService.findOne(user.sub).pipe(
-            map((user: User) => roles.includes(user.role))
+
+        return lastValueFrom(this.userService.findOne(user.sub).pipe(
+            map((user: User) => roles.includes(user.role)))
         )
     }
 }

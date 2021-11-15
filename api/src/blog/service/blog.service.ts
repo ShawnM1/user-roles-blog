@@ -43,15 +43,6 @@ export class BlogService {
             }))
     }
 
-    findByUser(userId: number): Observable<BlogEntry[]> {
-        return from(this.blogRepository.find({
-            where: {
-                author: userId
-            },
-            relations: ['author']
-        }))
-    }
-
     findOne(id: number): Observable<BlogEntry> {
         return from(this.blogRepository.findOne({ id }, { relations: ['author'] }))
     }
@@ -62,7 +53,7 @@ export class BlogService {
         )
     }
 
-    deleteOne(id): Observable<any> {
+    deleteOne(id: number): Observable<any> {
         return from(this.blogRepository.delete(id))
     }
 

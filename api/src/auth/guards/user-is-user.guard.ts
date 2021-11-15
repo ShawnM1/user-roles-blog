@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, forwardRef, Inject, Injectable } from "@nestjs/common";
-import { map, Observable } from "rxjs";
+import { lastValueFrom, map, Observable } from "rxjs";
 import { User } from "src/user/models/user.interface";
 import { UserService } from "src/user/user.service";
 
@@ -17,7 +17,7 @@ export class UserIsUserGuard implements CanActivate {
 
         // See if the user exists in DB because they could have been deleted
         // after the JWT was received.
-        return this.userService.findOne(userId).pipe(
+        return lastValueFrom(this.userService.findOne(userId).pipe(
             map((user: User) => {
                 let hasPermission = false
 
@@ -26,7 +26,7 @@ export class UserIsUserGuard implements CanActivate {
                 }
                 return user && hasPermission
             })
-        )
+        ))
     }
 
 }
