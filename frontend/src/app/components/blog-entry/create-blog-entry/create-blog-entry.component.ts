@@ -62,11 +62,9 @@ export class CreateBlogEntryComponent implements OnInit {
   }
 
   uploadFile() {
-    console.log('uploading')
     const formData = new FormData()
     formData.append('file', this.file.data)
     this.file.inProgress = true
-    console.log(formData)
     this.blogService.uploadHeaderImage(formData).pipe(
       map((event) => {
         switch(event.type) {
@@ -83,7 +81,6 @@ export class CreateBlogEntryComponent implements OnInit {
       })
     ).subscribe((event: any) => {
       if (typeof(event) === 'object') {
-        console.log(event)
         this.form.patchValue({ headerImage: event.body.filename })
       }
     })

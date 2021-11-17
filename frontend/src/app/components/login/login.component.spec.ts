@@ -28,8 +28,8 @@ describe('LoginComponent', () => {
         { provide: AuthenticationService, useValue: authSerivceStub },
         MatDialog 
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
+    
     authService = TestBed.inject(AuthenticationService)
     router = TestBed.inject(Router)
   });
