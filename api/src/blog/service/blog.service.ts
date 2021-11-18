@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 import { from, Observable, of, switchMap } from 'rxjs';
 import { User } from 'src/user/models/user.interface';
-import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { BlogEntryEntity } from '../models/blog-entry.entity';
 import { BlogEntry } from '../models/blog-entry.interface';
@@ -13,7 +12,7 @@ const slugify = require('slugify')
 @Injectable()
 export class BlogService {
 
-    constructor(@InjectRepository(BlogEntryEntity)private readonly blogRepository: Repository<BlogEntryEntity>, private userService: UserService) {}
+    constructor(@InjectRepository(BlogEntryEntity)private readonly blogRepository: Repository<BlogEntryEntity>) {}
 
     create(user: User, blogEntry: BlogEntry): Observable<BlogEntry> {
         user.id = user.sub
