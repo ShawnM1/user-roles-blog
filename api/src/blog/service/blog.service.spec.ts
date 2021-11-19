@@ -8,8 +8,7 @@ const repositoryMockFactory = () => ({
   save: jest.fn().mockResolvedValue({}),
   find: jest.fn().mockResolvedValue({}),
   findOne: jest.fn().mockResolvedValue({}),
-  update: jest.fn().mockResolvedValue({})
-  ,
+  update: jest.fn().mockResolvedValue({}),
   delete: jest.fn().mockResolvedValue({})
 })
 
